@@ -1,23 +1,18 @@
 import time
 import random
-import pygame
+import getch
+# import pygame
 import sys
-pygame.init()
 
-sc = pygame.display.set_mode((1000, 700))
-surf = pygame.Surface((800, 75))
-surf.fill((255, 255, 255))
-sc.fill((200, 255, 200))
-sc.blit(surf, (100, 200))
+# pygame.init()
+
+# sc = pygame.display.set_mode((1000, 700))
+# surf = pygame.Surface((800, 75))
+# surf.fill((255, 255, 255))
+# sc.fill((200, 255, 200))
+# sc.blit(surf, (100, 200))
 
 f = open("input.txt", "r")
-
-def decorator(funk):
-    def wrap(a):
-
-
-    return wrap
-
 
 
 class stroka:
@@ -30,11 +25,10 @@ class stroka:
         self.accuracy = 0
         self.speed = 0
         self.c = 0
-        self.i = 0
 
     def item_dicide(self):
         text = f.readlines()
-        self.item = text[403] #random.randint(0, len(text) - 1)
+        self.item = text[random.randint(0, len(text) - 1)]
         self.item = self.item[:-1]
 
     def time_start(self):
@@ -45,28 +39,23 @@ class stroka:
 
     def set_lenght(self):
         self.lenght = len(self.item)
+
     def print_str(self):
-        font = pygame.font.Font(None, 72)
-        text = font.render(self.item, True, (0, 100, 0))
-        place = text.get_rect(center=(500, 150))
-        sc.blit(text, place)
-        pygame.display.update()
-    def print_c(self):
-        font = pygame.font.Font(None, 72)
-        if self.correct >= self.lenght:
-            text = font.render(self.item, True, (255, 100, 100))
-        else:
-            text = font.render(self.item[:self.correct], True, (0, 0, 0))
-        place = text.get_rect(topleft=(100, 400))
-        sc.blit(text, place)
-        pygame.display.update()
+        print(self.item)
+        # font = pygame.font.Font(None, 72)
+        # text = font.render(self.item, True, (0, 100, 0))
+        # place = text.get_rect(center=(500, 150))
+        # sc.blit(text, place)
+        # pygame.display.update()
 
+    def get_c(self):
+        self.c = getch.getch()
 
-    @decorator
     def is_correct(self):
+        self.get_c()
         if self.c == self.item[self.correct]:
             self.correct = self.correct + 1
-            self.print_c()
+            print(self.c)
         else:
             self.wrong = self.wrong + 1
 
@@ -82,14 +71,14 @@ class stroka:
         print("speed is", self.speed)
 
     def write_res(self, file):
-        file.write(self.time,' ', self.speed,' ', self.accuracy)
+        file.write(self.time, ' ', self.speed, ' ', self.accuracy)
 
     def main_cikle(self):
         self.item_dicide()
         self.set_lenght()
         self.print_str()
         self.time_start()
-        while self.correct < self.lenght:
+        while self.correct <= self.lenght - 1:
             self.is_correct()
         print("\n")
         self.time_end()
@@ -100,8 +89,8 @@ class stroka:
 
     def saving(self):
         print("Do yo want save  the result?(y/n)")
-        answ = input()
-        if answ == 'y':
+        answer = input()
+        if answer == 'y':
             print("File:")
             name_file = str(input())
             save_file = open(name_file, "a+")
@@ -115,12 +104,5 @@ class stroka:
             save_file.write('% \n')
 
 
-
 a = stroka()
 a.main_cikle()
-while 1:
-    for i in pygame.event.get():
-        if i.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
