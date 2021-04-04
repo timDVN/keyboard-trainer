@@ -18,15 +18,14 @@ f = open("input.txt", "r")
 class stroka:
     def __init__(self):
         self.time = 0
-        self.correct = 0
-        self.item = ""
-        self.wrong = 0
+        self.correct = 0  # number of first not enetered element
+        self.item = ""  # string rhat you need to type
+        self.wrong = 0  # quantity of mistakes
         self.lenght = 0
-        self.accuracy = 0
         self.speed = 0
-        self.c = 0
+        self.c = 0  # last entered element
 
-    def item_dicide(self):
+    def item_deciding(self):
         text = f.readlines()
         self.item = text[random.randint(0, len(text) - 1)]
         self.item = self.item[:-1]
@@ -34,7 +33,7 @@ class stroka:
     def time_start(self):
         self.time = time.time()
 
-    def time_end(self):
+    def time_end(self):  # calculating of time
         self.time = time.time() - self.time
 
     def set_lenght(self):
@@ -59,22 +58,19 @@ class stroka:
         else:
             self.wrong = self.wrong + 1
 
-    def accuracy_calc(self):
-        self.accuracy = 100 * self.wrong / self.lenght
-
     def speed_calc(self):
         self.speed = self.lenght / self.time
 
     def print_result(self):
-        print("accuracy is ", self.accuracy, " %")
         print("time is", self.time)
         print("speed is", self.speed)
+        print("number of mistakes is ", self.wrong)
 
     def write_res(self, file):
-        file.write(self.time, ' ', self.speed, ' ', self.accuracy)
+        file.write(self.time, ' ', self.speed)
 
     def main_cikle(self):
-        self.item_dicide()
+        self.item_deciding()
         self.set_lenght()
         self.print_str()
         self.time_start()
@@ -82,7 +78,6 @@ class stroka:
             self.is_correct()
         print("\n")
         self.time_end()
-        self.accuracy_calc()
         self.speed_calc()
         self.print_result()
         self.saving()
@@ -99,9 +94,7 @@ class stroka:
             save_file.write(str(self.speed))
             save_file.write('      ')
             save_file.write(str(self.wrong))
-            save_file.write('      ')
-            save_file.write(str(self.accuracy))
-            save_file.write('% \n')
+            save_file.write('\n')
 
 
 a = stroka()
