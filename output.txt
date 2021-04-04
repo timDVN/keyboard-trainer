@@ -1,0 +1,2 @@
+Time             Speed(symbols/sec)     Wrong Accuracy
+7.20380973815918 1.8046006866530522      0      0.0% 
