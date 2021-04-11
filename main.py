@@ -12,7 +12,7 @@ import time
 # sc.fill((200, 255, 200))
 # sc.blit(surf, (100, 200))
 
-f = open("input.txt", "r")
+f = open("NoCodeFiles/input.txt", "r")
 
 
 class stroka:
