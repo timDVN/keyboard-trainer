@@ -3,7 +3,7 @@ import pygame
 import random
 import sys
 import time
-    
+
 # pygame.init()
 
 # sc = pygame.display.set_mode((1000, 700))
