@@ -11,7 +11,7 @@ surf.fill((255, 255, 255))
 sc.fill((200, 255, 200))
 sc.blit(surf, (100, 200))
 
-f = open("in(out)put/input.txt", "r")
+inputfile = open("in(out)put/input.txt", "r")
 
 
 class stroka:
@@ -26,7 +26,7 @@ class stroka:
         self.number = 0  # described below
 
     def item_decide(self):  # определение строки, которая будет вводиться
-        text = f.readlines()  # массив из строк
+        text = inputfile.readlines()  # массив из строк
         self.item = text[random.randint(0, len(text) - 1)]  # случайный элемент этого массива
         self.item = self.item[:-1]  # удаление символа '\n' из строки
 

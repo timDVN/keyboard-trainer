@@ -2,7 +2,7 @@ import getch
 import random
 import time
 
-f = open("in(out)put/input.txt", "r")
+inputfile = open("in(out)put/input.txt", "r")
 
 
 class stroka:
@@ -16,7 +16,7 @@ class stroka:
         self.char = 0  # символ, считаный с ввода
 
     def item_decide(self):  # определение строки, которая будет вводиться
-        text = f.readlines()  # массив из строк
+        text = inputfile.readlines()  # массив из строк
         self.item = text[random.randint(0, len(text) - 1)]  # случайный элемент этого массива
         self.item = self.item[:-1]  # удаление символа '\n' из строки
 

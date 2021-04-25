@@ -9,7 +9,7 @@
 pip install https://pypi.python.org/packages/source/g/getch/getch-1.0-python2.tar.gz#md5=586ea0f1f16aa094ff6a30736ba03c50  (если библиотека getch не установлена)
 python3 main.py
 ```
-- ✨Magic ✨
+- sparklesMagic sparkles
 
 # "Руководство по эксплуотации"
 
