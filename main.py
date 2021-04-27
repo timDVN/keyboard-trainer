@@ -2,7 +2,6 @@ import getch
 import random
 import time
 
-inputfile = open("in(out)put/input.txt", "r")
 
 
 class stroka:
@@ -16,7 +15,8 @@ class stroka:
         self.char = 0  # символ, считаный с ввода
 
     def item_decide(self):  # определение строки, которая будет вводиться
-        text = inputfile.readlines()  # массив из строк
+        with open("in(out)put/input.txt", "r") as inputfile:
+            text = inputfile.readlines()  # массив из строк
         self.item = text[random.randint(0, len(text) - 1)]  # случайный элемент этого массива
         self.item = self.item[:-1]  # удаление символа '\n' из строки
 
@@ -70,13 +70,13 @@ class stroka:
         if answer == 'y':
             print("File:")
             name_file = input()
-            save_file = open(name_file, "a+")
-            save_file.write(str(self.time))
-            save_file.write(' ')
-            save_file.write(str(self.speed))
-            save_file.write(' ' * 6)
-            save_file.write(str(self.wrong))
-            save_file.write(' ' * 6 + '\n')
+            with open(name_file, "a+") as save_file:
+                save_file.write(str(self.time))
+                save_file.write(' ')
+                save_file.write(str(self.speed))
+                save_file.write(' ' * 6)
+                save_file.write(str(self.wrong))
+                save_file.write('\n')
 
 
 trainer = stroka()
