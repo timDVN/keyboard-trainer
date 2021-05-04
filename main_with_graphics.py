@@ -5,11 +5,19 @@ import time
 
 pygame.init()
 
-sc = pygame.display.set_mode((1000, 1000))  # создание окна на экране устройства
-surf = pygame.Surface((800, 75))
+HorizontalSize = 1000
+VerticalSize = 1000
+HorizontalCenter = HorizontalSize / 2
+VerticalCenter = VerticalSize / 2
+VerticalIndent = 150
+HorizontalIndent = 100
+LineHeight = 75
+NumberOfLine = 0
+screen = pygame.display.set_mode((1000, 1000))  # создание окна на экране устройства
+surf = pygame.Surface((HorizontalSize - 2 * HorizontalIndent, LineHeight))
 surf.fill((255, 255, 255))
-sc.fill((200, 255, 200))
-sc.blit(surf, (100, 200))
+screen.fill((200, 255, 200))
+screen.blit(surf, (HorizontalIndent, VerticalIndent + LineHeight))
 
 
 class stroka:
@@ -39,20 +47,24 @@ class stroka:
         self.length = len(self.item)
 
     def print_str(self):  # печать строки, которую надо ввести
-        font = pygame.font.Font(None, 72)  # шрифт
+        global NumberOfLine
+        font = pygame.font.Font(None, LineHeight)  # шрифт
         text = font.render(self.item, True, (0, 100, 0))  # объект с текстом
-        place = text.get_rect(center=(500, 150))  # положение текста
-        sc.blit(text, place)  # вывод текста
+        place = text.get_rect(center=(HorizontalCenter, VerticalIndent + LineHeight * NumberOfLine))  # положение текста
+        NumberOfLine += 1
+        screen.blit(text, place)  # вывод текста
         pygame.display.update()  # обновление окна
 
     def print_char(self):
-        font = pygame.font.Font(None, 72)  # шрифт
+        global NumberOfLine
+        font = pygame.font.Font(None, LineHeight)  # шрифт
         if self.correct >= self.length:  # введена  вся строка
             text = font.render(self.item, True, (255, 100, 100))
         else:  # введена не вся строка
             text = font.render(self.item[:self.correct], True, (0, 0, 0))
-        place = text.get_rect(topleft=(100, 220))
-        sc.blit(text, place)
+        place = text.get_rect(topleft=(HorizontalIndent, VerticalIndent + LineHeight))
+        # 0.5 + NumberOfLine - 1 т.к. размещение по topleft
+        screen.blit(text, place)
         pygame.display.update()
 
     def is_correct(self):  # проверка введённого символа на корректность
@@ -66,16 +78,21 @@ class stroka:
         self.speed = self.length / self.time
 
     def print_result(self):
-        font = pygame.font.Font(None, 50)  # шрифт
+        global NumberOfLine
+        NumberOfLine += 2  # оставляем пустую строку после поля surface
+        font = pygame.font.Font(None, LineHeight)  # шрифт
         text = font.render("time is" + str(self.time), True, (0, 100, 0))  # объект с тесктом
-        place = text.get_rect(center=(500, 600))  # место
-        sc.blit(text, place)  # вывод текста
+        place = text.get_rect(center=(HorizontalCenter, VerticalIndent + NumberOfLine * LineHeight))  # место
+        NumberOfLine += 1
+        screen.blit(text, place)  # вывод текста
         text = font.render("speed is" + str(self.speed), True, (0, 100, 0))  # -//-
-        place = text.get_rect(center=(500, 650))  # -//-
-        sc.blit(text, place)  # -//-
+        place = text.get_rect(center=(HorizontalCenter, VerticalIndent + NumberOfLine * LineHeight))  # -//-
+        NumberOfLine += 1
+        screen.blit(text, place)  # -//-
         text = font.render("number of mistakes is" + str(self.wrong), True, (0, 100, 0))  # -//-
-        place = text.get_rect(center=(500, 700))  # -//-
-        sc.blit(text, place)  # -//-
+        place = text.get_rect(center=(HorizontalCenter, VerticalIndent + NumberOfLine * LineHeight))  # -//-
+        NumberOfLine += 1
+        screen.blit(text, place)  # -//-
         pygame.display.update()  # обновление окна
 
     def main_cycle(self):
@@ -104,10 +121,11 @@ class stroka:
                     sys.exit()
 
     def saving(self):
-        font = pygame.font.Font(None, 50)  # шрифт
+        global NumberOfLine
+        font = pygame.font.Font(None, int(LineHeight * 0.75))  # шрифт
         text = font.render("Do yo want save the result(write in terminal)?(y/n)", True, (0, 100, 0))  # объект с текстом
-        place = text.get_rect(center=(500, 750))  # место
-        sc.blit(text, place)  # вывод
+        place = text.get_rect(center=(HorizontalCenter, VerticalIndent + NumberOfLine * LineHeight))  # место
+        screen.blit(text, place)  # вывод
         pygame.display.update()  # обновление
         answer = input()
         if answer == 'y':
