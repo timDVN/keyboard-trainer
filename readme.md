@@ -1,3 +1,5 @@
+![main example](https://user-images.githubusercontent.com/79220763/117375207-37111480-aed7-11eb-96ce-f0750c425f09.png)
+![main_with_graphics example](https://user-images.githubusercontent.com/79220763/117375211-38424180-aed7-11eb-8260-2fa727e85f55.png)
 # Обычная версия
 ## Условия запуска
 
