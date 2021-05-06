@@ -1,6 +1,5 @@
 import main
 import pygame
-import random
 import sys
 import time
 
@@ -25,18 +24,12 @@ class KeyboardTrainer:
     def __init__(self):
         self.time = 0
         self.correct = 0  # number of first not entered element
-        self.item = ""  # string that you need to type
+        self.item = main.item_decide()  # string that you need to type
         self.wrong = 0  # quantity of mistakes
         self.length = 0
         self.speed = 0
         self.char = 0  # last entered element
         self.number = 0  # described below
-
-    def item_decide(self):  # определение строки, которая будет вводиться
-        with open("in(out)put/input.txt", "r") as inputfile:
-            text = inputfile.readlines()  # массив из строк
-        self.item = text[random.randint(0, len(text) - 1)]  # случайный элемент этого массива
-        self.item = self.item[:-1]  # удаление символа '\n' из строки
 
     def time_start(self):  # начало отсчёта
         self.time = time.time()
@@ -97,7 +90,6 @@ class KeyboardTrainer:
         pygame.display.update()  # обновление окна
 
     def main_cycle(self):
-        self.item_decide()
         self.set_length()
         self.print_str()
         self.time_start()

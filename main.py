@@ -3,21 +3,15 @@ import random
 import time
 
 
-class KeyboardTainer:
+class KeyboardTrainer:
     def __init__(self):
         self.time = 0
         self.correct = 0  # количество правильно введённых символов
-        self.item = ""  # строка, которую необходимо ввести
+        self.item = item_decide()  # строка, которую необходимо ввести
         self.wrong = 0  # кол-во ошибок
         self.length = 0  # длинна строки
         self.speed = 0  # скорость напечатания
         self.char = 0  # символ, считаный с ввода
-
-    def item_decide(self):  # определение строки, которая будет вводиться
-        with open("in(out)put/input.txt", "r") as inputfile:
-            text = inputfile.readlines()  # массив из строк
-        self.item = text[random.randint(0, len(text) - 1)]  # случайный элемент этого массива
-        self.item = self.item[:-1]  # удаление символа '\n' из строки
 
     def time_start(self):  # начало отсчёта времени
         self.time = time.time()
@@ -51,7 +45,6 @@ class KeyboardTainer:
         print("number of mistakes is ", self.wrong)
 
     def main_cycle(self):  # главный цикл, который включает в себя весь функционал программы
-        self.item_decide()
         self.set_length()
         self.print_str()
         self.time_start()
@@ -82,5 +75,13 @@ def saving(duration, mistakes, speed):
         save_file.write('\n')
 
 
-trainer = KeyboardTainer()
+def item_decide():  # определение строки, которая будет вводиться
+    with open("in(out)put/input.txt", "r") as inputfile:
+        text = inputfile.readlines()  # массив из строк
+    item = text[random.randint(0, len(text) - 1)]  # случайный элемент этого массива
+    item = item[:-1]  # удаление символа '\n' из строки
+    return item
+
+
+trainer = KeyboardTrainer()
 trainer.main_cycle()
