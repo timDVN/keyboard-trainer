@@ -1,3 +1,4 @@
+import main
 import pygame
 import random
 import sys
@@ -20,7 +21,7 @@ screen.fill((200, 255, 200))
 screen.blit(surf, (HorizontalIndent, VerticalIndent + LineHeight))
 
 
-class stroka:
+class KeyboardTrainer:
     def __init__(self):
         self.time = 0
         self.correct = 0  # number of first not entered element
@@ -113,14 +114,14 @@ class stroka:
         self.time_end()
         self.speed_calc()
         self.print_result()
-        self.saving()
+        self.ask_for_saving()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
 
-    def saving(self):
+    def ask_for_saving(self):
         global NumberOfLine
         font = pygame.font.Font(None, int(LineHeight * 0.75))  # шрифт
         text = font.render("Do yo want save the result(write in terminal)?(y/n)", True, (0, 100, 0))  # объект с текстом
@@ -129,18 +130,10 @@ class stroka:
         pygame.display.update()  # обновление
         answer = input()
         if answer == 'y':
-            print("File:")
-            name_file = input()
-            with open(name_file, "a+") as save_file:
-                save_file.write(str(self.time))
-                save_file.write(' ')
-                save_file.write(str(self.speed))
-                save_file.write(' ' * 6)
-                save_file.write(str(self.wrong))
-                save_file.write('\n')
+            main.saving(self.time, self.wrong, self.speed)
         else:
             return 0
 
 
-trainer = stroka()
+trainer = KeyboardTrainer()
 trainer.main_cycle()

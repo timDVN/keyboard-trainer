@@ -3,8 +3,7 @@ import random
 import time
 
 
-
-class stroka:
+class KeyboardTainer:
     def __init__(self):
         self.time = 0
         self.correct = 0  # количество правильно введённых символов
@@ -62,22 +61,26 @@ class stroka:
         self.time_end()
         self.speed_calc()
         self.print_result()
-        self.saving()
+        self.ask_for_saving()
 
-    def saving(self):  # сохранение результатов
+    def ask_for_saving(self):  # сохранение результатов
         print("Do yo want save  the result?(y/n)")
         answer = input()
         if answer == 'y':
-            print("File:")
-            name_file = input()
-            with open(name_file, "a+") as save_file:
-                save_file.write(str(self.time))
-                save_file.write(' ')
-                save_file.write(str(self.speed))
-                save_file.write(' ' * 6)
-                save_file.write(str(self.wrong))
-                save_file.write('\n')
+            saving(self.time, self.wrong, self.speed)
 
 
-trainer = stroka()
+def saving(duration, mistakes, speed):
+    print("File:")
+    name_file = input()
+    with open(name_file, "a+") as save_file:
+        save_file.write(str(duration))
+        save_file.write(' ')
+        save_file.write(str(speed))
+        save_file.write(' ' * 6)
+        save_file.write(str(mistakes))
+        save_file.write('\n')
+
+
+trainer = KeyboardTainer()
 trainer.main_cycle()
